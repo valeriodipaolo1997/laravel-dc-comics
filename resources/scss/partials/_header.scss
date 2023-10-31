@@ -1,0 +1,18 @@
+.nav {
+
+    a {
+        color: white;
+
+        &.active {
+            color: white;
+            background-color: white;
+        }
+
+        &:hover {
+            color: red;
+
+        }
+
+    }
+
+}
