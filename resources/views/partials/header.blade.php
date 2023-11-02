@@ -4,7 +4,7 @@
             <div class="nav navbar-nav align-items-center">
                 <a class="nav-link py-4 {{ Route::currentRouteName() === 'home' ? 'active' : '' }}" href=" {{route('home')}} ">Home</a>
                 <a class="nav-link py-4 {{ Route::currentRouteName() === 'comics' ? 'active' : '' }}" href=" {{route('comics')}} ">Comics</a>
-                <a class="nav-link py-4 ms-5" href="  {{ route('comics.index') }} ">Admin</a>
+                <a class="nav-link py-4 ms-5 {{ Route::currentRouteName() === 'comics.index' ? 'active' : '' }}" href="  {{ route('comics.index') }} ">Admin</a>
             </div>
         </div>
     </nav>
