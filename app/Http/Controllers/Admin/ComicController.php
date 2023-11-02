@@ -6,6 +6,7 @@ namespace App\Http\Controllers\Admin;
 use App\Models\Comic;
 use Illuminate\Http\Request;
 use App\Http\Controllers\Controller;
+use Illuminate\Support\Facades\Storage;
 
 class ComicController extends Controller
 {
@@ -22,7 +23,7 @@ class ComicController extends Controller
      */
     public function create()
     {
-        //
+        return view('admin.comics.create');
     }
 
     /**
@@ -30,7 +31,7 @@ class ComicController extends Controller
      */
     public function store(Request $request)
     {
-        //
+        $image_path = Storage::put('comic_image', $request->image);
     }
 
     /**
