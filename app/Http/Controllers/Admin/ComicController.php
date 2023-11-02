@@ -31,15 +31,29 @@ class ComicController extends Controller
      */
     public function store(Request $request)
     {
-        $image_path = Storage::put('comic_image', $request->image);
+        if ($request->has('image')) {
+
+            $image_path = Storage::put('comic_image', $request->image);
+        }
+
+        $comic = new Comic();
+        $comic->title = $request->title;
+        $comic->thumb = $image_path;
+        $comic->series = $request->series;
+        $comic->save();
+
+        return to_route('comics.index');
+    
     }
 
     /**
      * Display the specified resource.
      */
-    public function show(string $id)
+    public function show(Comic $comic)
     {
-        //
+        if ($comic) {
+            return view('admin.comics.show', compact('comic'));
+        }
     }
 
     /**
