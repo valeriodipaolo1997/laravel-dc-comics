@@ -32,6 +32,7 @@ class ComicController extends Controller
      */
     public function store(Request $request)
     {
+        $image_path = null;
         if ($request->has('image')) {
 
             $image_path = Storage::put('comic_image', $request->image);
@@ -62,15 +63,30 @@ class ComicController extends Controller
      */
     public function edit(string $id)
     {
-        //
+        return view('admin.comics.edit', compact('comic'));
     }
 
     /**
      * Update the specified resource in storage.
      */
-    public function update(Request $request, string $id)
+    public function update(Request $request, Comic $comic)
     {
-        //
+        $data = $request->all();
+
+        if ($request->has('image') && $comic->thumb) {
+
+            Storage::delete($comic->thumb);
+
+            $newImageFile = $request->image;
+
+            $path = Storage::put('comic_image', $newImageFile);
+
+            $data['image'] = $path;
+        }
+
+        $comic->update($data);
+
+        return to_route('comics.show', $comic);
     }
 
     /**
