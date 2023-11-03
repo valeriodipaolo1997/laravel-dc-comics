@@ -20,12 +20,13 @@
             </div>
 
             <div class="mb-3">
-                <label for="series" class="form-label">Series</label>
-                <input type="text" name="series" id="series" class="form-control" placeholder="" aria-describedby="helpId">
+            <label for="thumb" class="form-label">Image</label>
+                <input type="file" name="thumb" id="thumb" class="form-control" placeholder="" aria-describedby="helpId">
                 <small id="seriesHelper" class="text-muted">Type a series</small>
             </div>
 
             <button type="submit" class="btn btn-primary">Add</button>
+            <a class="text-decoration-none btn btn-primary" href="{{ route('comics.index') }}">Torna alla lista</a>
 
         </form>
     </div>
