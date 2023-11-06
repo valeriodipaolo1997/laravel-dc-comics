@@ -33,17 +33,19 @@ class ComicController extends Controller
      */
     public function store(Request $request)
     {
-        $image_path = null;
-        if ($request->has('thumb')) {
+        
+        $val_data = $request->validate([
+            'title' => 'bail|required|min:5|max:100',
+            'series' => 'bail|required|min:10|max:100',
+            'thumb' => 'required|image'
+        ]);
 
-            $image_path = Storage::put('comic_image', $request->thumb);
+        if ($request->has('thumb')) {
+            $file_path =  Storage::put('products_image', $request->thumb);
+            $val_data['thumb'] = $file_path;
         }
 
-        $comic = new Comic();
-        $comic->title = $request->title;
-        $comic->thumb = $image_path;
-        $comic->series = $request->series;
-        $comic->save();
+        Comic::create($val_data);
 
         return to_route('comics.index')->with('message', 'Welldone! Comic created successfully');
     }
