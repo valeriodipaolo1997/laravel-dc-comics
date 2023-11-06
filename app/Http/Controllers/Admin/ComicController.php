@@ -73,20 +73,23 @@ class ComicController extends Controller
      */
     public function update(Request $request, Comic $comic)
     {
-        $data = $request->all();
+        
+        $val_data = $request->validate([
+            'title' => 'bail|required|min:5|max:100',
+            'series' => 'bail|required|min:10|max:100',
+            'thumb' => 'required|image'
+        ]);
 
         if ($request->has('thumb') && $comic->thumb) {
 
             Storage::delete($comic->thumb);
 
             $newImageFile = $request->thumb;
-
-            $path = Storage::put('comic_image', $newImageFile);
-
-            $data['thumb'] = $path;
+            $file_path = Storage::put('comic_image', $newImageFile);
+            $val_data['thumb'] = $file_path;
         }
 
-        $comic->update($data);
+        $comic->update($val_data);
 
         return to_route('comics.index')->with('message', 'Welldone! Comic updated successfully');
     }
